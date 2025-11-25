@@ -1,6 +1,0 @@
-SELECT
-    cli.ID_CLIENTE,
-    cli.NOME_CLIENTE,
-    cli.CPF
-FROM CLIENTES cli
-    ORDER BY cli.ID_CLIENTE

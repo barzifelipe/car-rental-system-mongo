@@ -1,6 +1,0 @@
-SELECT
-    func.ID_FUNCIONARIO,
-    func.NOME,
-    func.CARGO
-FROM FUNCIONARIOS func
-    ORDER BY func.ID_FUNCIONARIO
