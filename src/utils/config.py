@@ -1,69 +1,8 @@
-
 import os
+from conexion.mongo_queries import MongoQueries
+import pandas as pd
 
-
-def clear_console(wait_seconds: int = 0):
-    
-    import time
-    if wait_seconds > 0:
-        time.sleep(wait_seconds)
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-
-DB_SCHEMA = "LABDATABASE"
-
-QUERY_COUNT = "SELECT COUNT(*) AS total_{tabela} FROM LABDATABASE.{tabela}"
-
-
-QUERY_INSERT_CLIENTE = """
-INSERT INTO LABDATABASE.CLIENTES (ID_CLIENTE, NOME_CLIENTE, CPF)
-VALUES (CLIENTES_ID_CLIENTE_SEQ.NEXTVAL, :nome_cliente, :cpf)
-"""
-
-
-QUERY_INSERT_CARRO = """
-INSERT INTO LABDATABASE.CARROS (ID_CARRO, MODELO, PLACA, CATEGORIA, VALOR_DIARIA)
-VALUES (CARROS_ID_CARRO_SEQ.NEXTVAL, :modelo, :placa, :categoria, :valor_diaria)
-"""
-
-
-QUERY_INSERT_FUNCIONARIO = """
-INSERT INTO LABDATABASE.FUNCIONARIOS (ID_FUNCIONARIO, NOME, CARGO)
-VALUES (FUNCIONARIOS_ID_FUNCIONARIO_SEQ.NEXTVAL, :nome, :cargo)
-"""
-
-
-QUERY_INSERT_LOCACAO = """
-DECLARE
-    VNUM_RESERVA NUMBER;
-    VID_CARRO NUMBER;
-BEGIN
-    VNUM_RESERVA := LABDATABASE.LOCACOES_NUMERO_RESERVA_SEQ.NEXTVAL;
-    
-    SELECT ID_CARRO
-      INTO VID_CARRO
-      FROM LABDATABASE.CARROS
-     WHERE PLACA = :placa;
-    
-    INSERT INTO LABDATABASE.LOCACOES (
-        NUMERO_RESERVA,
-        DATA_INICIO,
-        DATA_FIM,
-        ID_CLIENTE,
-        ID_VEICULO,
-        ID_FUNCIONARIO
-    ) VALUES (
-        VNUM_RESERVA,
-        TO_DATE(:data_inicio, 'YYYY-MM-DD'),
-        TO_DATE(:data_fim, 'YYYY-MM-DD'),
-        :id_cliente,
-        VID_CARRO,
-        :id_funcionario
-    );
-END;
-"""
-
-
+# MENUS
 
 MENU_PRINCIPAL = """
 ================== MENU PRINCIPAL ==================
@@ -95,3 +34,27 @@ MENU_ENTIDADES = """
 5 - Voltar
 ==============================================
 """
+
+
+# Consulta de contagem de registros por tabela.
+def query_count(collection_name):
+    mongo = MongoQueries()
+    mongo.connect()
+
+    my_collection = mongo.db[collection_name]
+    total_documentos = my_collection.count_documents({})
+
+    mongo.close()
+
+    df = pd.DataFrame({f"total_{collection_name}": [total_documentos]})
+    return df
+
+
+# Limpa o console após aguardar um tempo determinado.
+def clear_console(wait_seconds: int = 0):
+    import time
+    if wait_seconds > 0:
+        time.sleep(wait_seconds)
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
