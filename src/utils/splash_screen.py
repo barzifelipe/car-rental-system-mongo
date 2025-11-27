@@ -1,4 +1,4 @@
-from conexion.oracle_queries import OracleQueries
+
 from utils import config
 
 class SplashScreenLocadora:
@@ -12,21 +12,17 @@ class SplashScreenLocadora:
         self.disciplina = "Banco de Dados\t2025/2"
        
 
-    def get_total(self, tabela: str):
+    def get_total(self, collection_name):
         """Retorna o total de registros de uma tabela"""
-        oracle = OracleQueries()
-        oracle.connect()
-        df = oracle.sqlToDataFrame(
-            f"SELECT COUNT(*) AS total_{tabela} FROM LABDATABASE.{tabela.upper()}"
-        )
-        return df[f"total_{tabela}"].values[0]
+        df = config.query_count(collection_name=collection_name)
+        return df[f"total_{collection_name}"].values[0]
 
     def get_updated_screen(self):
         """Retorna a splash screen atualizada com os totais"""
-        total_clientes = str(self.get_total('clientes')).rjust(5)
-        total_carros = str(self.get_total('carros')).rjust(5)
-        total_funcionarios = str(self.get_total('funcionarios')).rjust(5)
-        total_locacoes = str(self.get_total('locacoes')).rjust(5)
+        total_clientes = str(self.get_documents_count(collection_name="clientes")).rjust(5)
+        total_carros = str(self.get_documents_count(collection_name="carros")).rjust(5)
+        total_funcionarios = str(self.get_documents_count(collection_name="funcionarios")).rjust(5)
+        total_locacoes = str(self.get_documents_count(collection_name="locacoes")).rjust(5)
 
         return f"""
         ================= SISTEMA DE LOCAÇÃO DE VEÍCULOS =================
