@@ -19,10 +19,10 @@ class SplashScreenLocadora:
 
     def get_updated_screen(self):
         """Retorna a splash screen atualizada com os totais"""
-        total_clientes = str(self.get_documents_count(collection_name="clientes")).rjust(5)
-        total_carros = str(self.get_documents_count(collection_name="carros")).rjust(5)
-        total_funcionarios = str(self.get_documents_count(collection_name="funcionarios")).rjust(5)
-        total_locacoes = str(self.get_documents_count(collection_name="locacoes")).rjust(5)
+        total_clientes = str(self.get_total(collection_name="clientes")).rjust(5)
+        total_carros = str(self.get_total(collection_name="carros")).rjust(5)
+        total_funcionarios = str(self.get_total(collection_name="funcionarios")).rjust(5)
+        total_locacoes = str(self.get_total(collection_name="locacoes")).rjust(5)
 
         return f"""
         ================= SISTEMA DE LOCAÇÃO DE VEÍCULOS =================

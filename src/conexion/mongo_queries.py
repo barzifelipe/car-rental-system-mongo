@@ -7,7 +7,7 @@ class MongoQueries:
         self.port = 27017
         self.service_name = 'labdatabase'
 
-        with open("conexion/passphrase/authentication.mongo", "r") as f:
+        with open("src/conexion/passphrase/authentication.mongo", "r") as f:
             self.user, self.passwd = f.read().split(',')
 
     def __del__(self):
