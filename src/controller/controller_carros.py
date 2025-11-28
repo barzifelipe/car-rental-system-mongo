@@ -11,9 +11,11 @@ class Controller_Carro:
 
         placa = input("Informe a placa do novo Carro: ")
 
-        if self.verifica_existencia_carro(placa=placa):
-            print(f"A placa {placa} já está cadastrada no sistema.")
+       
+        if not self.verifica_existencia_carro(placa=placa):
+            print(f"A placa '{placa}' já está cadastrada no sistema.")
             input("\nPressione Enter para prosseguir")
+            self.mongo.close()
             return None
 
         modelo = input("Informe o modelo do Carro: ")
@@ -23,10 +25,12 @@ class Controller_Carro:
         df_carros = pd.DataFrame(
             list(
                 self.mongo.db["carros"].find(
-                    {}, {"id_carro": 1, "_id": 0}
+                    {},
+                    {"id_carro": 1, "_id": 0}
                 )
             )
         )
+
         proximo_id = 1 if df_carros.empty else int(df_carros["id_carro"].max() + 1)
 
         self.mongo.db["carros"].insert_one({
@@ -59,7 +63,7 @@ class Controller_Carro:
 
         id_carro = int(input("Informe o ID do Carro que deseja alterar: "))
 
-        if not self.verifica_existencia_carro(id_carro=id_carro):
+        if self.verifica_existencia_carro(id_carro=id_carro):
             print(f"O Carro com ID {id_carro} não foi encontrado.")
             input("\nPressione Enter para prosseguir")
             self.mongo.close()
@@ -97,12 +101,12 @@ class Controller_Carro:
         self.mongo.close()
         return carro_atualizado
 
-    def excluir_carro(self):
+    def excluir_carro(self) -> Carro:
         self.mongo.connect()
 
         id_carro = int(input("Informe o ID do Carro a ser excluído: "))
 
-        if not self.verifica_existencia_carro(id_carro=id_carro):
+        if self.verifica_existencia_carro(id_carro=id_carro):
             print(f"O Carro com ID {id_carro} não foi encontrado.")
             input("\nPressione Enter para prosseguir")
             self.mongo.close()
@@ -151,6 +155,7 @@ class Controller_Carro:
         if external:
             self.mongo.close()
 
+       
         return df_carro.empty
 
     def recupera_carro(self, id_carro: int = None, placa: str = None, external: bool = False) -> pd.DataFrame:

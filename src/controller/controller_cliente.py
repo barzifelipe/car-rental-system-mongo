@@ -128,7 +128,7 @@ class Controller_Cliente:
         list(
             self.mongo.db["clientes"].find(
                 filtro,
-                { "id_cliente": 1, "nome_cliente": 1, "cpf": 0 }
+                { "id_cliente": 1, "nome_cliente": 1, "cpf": 1 }
             )
         )
     )
