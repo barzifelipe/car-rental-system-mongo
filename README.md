@@ -50,11 +50,11 @@ git clone https://github.com/barzifelipe/car_rental_system.git
 - src/model:
   Classes que representam as entidades do sistema.
 
-- src/reports
+- src/reports:
   Classe responsável por gerar relatórios.
 
-- src/utils
-  Scripts auxiliares: config.py / splash_screen.py
+- src/utils:
+  Scripts auxiliares: (config.py) (splash_screen.py)
 
 - createCollectionsAndData.py:
   Cria coleções e popula o MongoDB com dados do Oracle.
