@@ -41,26 +41,26 @@ git clone https://github.com/barzifelipe/car_rental_system.git
 [Executar principal.py](./src/principal.py)
 
 ## Organização do Projeto
--src/conexion:
- Contém os módulos de conexão com Oracle e MongoDB.
+- src/conexion:
+  Contém os módulos de conexão com Oracle e MongoDB.
  
--src/controller:
- Classes responsáveis por inserir, atualizar e remover documentos.
+- src/controller:
+  Classes responsáveis por inserir, atualizar e remover documentos.
 
--src/model:
- Classes que representam as entidades do sistema.
+- src/model:
+  Classes que representam as entidades do sistema.
 
--src/reports
- Classe responsável por gerar relatórios.
+- src/reports
+  Classe responsável por gerar relatórios.
 
--src/utils
- Scripts auxiliares: config.py / splash_screen.py
+- src/utils
+  Scripts auxiliares: config.py / splash_screen.py
 
--createCollectionsAndData.py:
- Cria coleções e popula o MongoDB com dados do Oracle.
+- createCollectionsAndData.py:
+  Cria coleções e popula o MongoDB com dados do Oracle.
 
--principal.py:
- Interface principal com o usuário.
+- principal.py:
+  Interface principal com o usuário.
 
 ## Tecnologias Utilizadas
 >Python;
