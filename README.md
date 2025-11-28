@@ -26,8 +26,8 @@ Esse script realiza automaticamente:
 1. Clone o repositório:
 git clone https://github.com/barzifelipe/car_rental_system.git
 
-2. Crie as tabelas:
-[Executar create_tables_and_records.py](./src/create_tables_and_records.py)
+2. Crie as coleções:
+[Executar createCollectionsAndData.py](src/createCollectionsAndData.py)
 
 3. Execute o sistema:
 [Executar principal.py](./src/principal.py)
