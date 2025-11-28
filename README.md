@@ -1,54 +1,36 @@
-# SISTEMA DE LOCAÇÃO DE VEÍCULOS
+# SISTEMA DE LOCAÇÃO DE VEÍCULOS 
+Este sistema é baseado em um fluxo híbrido Oracle - MongoDB, onde os dados armazenados no Oracle são extraídos e enviados para coleções MongoDB que serão utilizadas pelo restante da aplicação. 
+O sistema representa um ambiente de locação de veículos, contendo as seguintes coleções no MongoDB: 
 
-O Sistema de Locação de Veículos tem como objetivo gerenciar o processo de aluguel de carros, controlando informações de clientes, funcionários, veículos e locações.  
-O projeto registra reservas, calcula períodos de locação e permite relatórios por categoria.
+- Carros;
+- Cliente;
+- Funcionário;
+- Locações;
 
-O sistema possibilita o controle completo do ciclo de locação, desde o cadastro de clientes e veículos até o registro das reservas feitas pelos funcionários.  
-Cada locação armazena quem alugou, qual carro foi alugado, quem realizou o atendimento e as datas de início e término da reserva.
+Essas coleções são povoadas automaticamente a partir das tabelas equivalentes existentes no banco Oracle.
 
-## Relatórios Disponíveis
-- Relatório de Clientes;
-- Relatório de Funcionários;
-- Relatório de Carros;
-- Relatório de Locações;
-- Relatório de Valor Diárias por Categoria.
+## Criação das Coleções e Inserção dos Documentos 
+Antes de executar o sistema, é obrigatório criar as coleções e preencher o MongoDB com os dados extraídos do Oracle. 
+$ python createCollectionsAndData.py 
 
-## Estrutura do Banco de Dados
-O banco de dados é composto por quatro entidades principais:
+Esse script realiza automaticamente: 
+- Criação das coleções no MongoDB (carros, cliente, funcionario, locacoes);
+- Drop das coleções caso já existam;
+- Extração de dados das tabelas do Oracle;
+- Conversão dos registros para JSON;
+- Inserção dos documentos no MongoDB;
 
-- **CLIENTE**: Guarda as informações dos clientes cadastrados.  
-- **FUNCIONARIO**: Armazena dados dos funcionários responsáveis pelos atendimentos.  
-- **CARRO**: Registra os veículos disponíveis para locação.  
-- **LOCACAO**: Registra cada reserva efetuada, relacionando cliente, carro e funcionário.  
+*Para o script funcionar corretamente, é necessário que as tabelas já existam no Oracle e estejam preenchidas.*
 
-## Banco de Dados
-- Banco utilizado: MySQL  
-- Scripts disponíveis em: [SQL](./sql)
+## Criar as Tabelas e Populá-las no Oracle 
+Antes de sincronizar para o MongoDB, execute: 
+$ python create_tables_and_records.py 
 
-## Relacionamentos
-- Cliente - Locação: um cliente pode realizar várias locações (1:N)  
-- Carro - Locação: um carro pode estar em várias locações ao longo do tempo (1:N)  
-- Funcionário - Locação: um funcionário pode registrar várias locações (1:N)  
-
-## Diagrama Entidade-Relacionamento (ER)
-O sistema possui quatro entidades principais: Cliente, Funcionário, Carro e Locação.  
-Cada locação conecta um cliente, um carro e um funcionário.
-
-erDiagram
-    CLIENTE ||--o{ LOCACAO : "realiza"
-    FUNCIONARIO ||--o{ LOCACAO : "registra"
-    CARRO ||--o{ LOCACAO : "é alugado em"
-    
-Arquivo do diagrama: [diagrama.mmd](./diagrams/diagrama.mmd)
-
-## Tecnologias Utilizadas
->Python;
->MySQL;
->Mermaid (para o diagrama ER);
->GitHub.
+Esse script: 
+- Cria as tabelas necessárias no Oracle (carros, cliente, funcionario, locacoes);
+- Insere registros de exemplo.
 
 ## Como Executar o Projeto:
-
 1. Clone o repositório:
 git clone https://github.com/barzifelipe/car_rental_system.git
 
@@ -57,6 +39,41 @@ git clone https://github.com/barzifelipe/car_rental_system.git
 
 3. Execute o sistema:
 [Executar principal.py](./src/principal.py)
+
+## Organização do Projeto
+-src/conexion:
+Contém os módulos de conexão com Oracle e MongoDB.
+
+-src/controller:
+Classes responsáveis por inserir, atualizar e remover documentos.
+
+-src/model:
+Classes que representam as entidades do sistema.
+
+-src/reports
+Classe responsável por gerar relatórios.
+
+-src/utils
+Scripts auxiliares: config.py / splash_screen.py
+
+-createCollectionsAndData.py:
+Cria coleções e popula o MongoDB com dados do Oracle.
+
+-principal.py:
+Interface principal com o usuário.
+
+## Tecnologias Utilizadas
+>Python;
+>POO;
+>Oracle;
+>MongoDB
+>pymongo;
+>oracledb;
+>pandas;
+>json;
+>logging;
+>Mermaid (para o diagrama ER);
+>GitHub.
 
 ## Autores:
 Emanoel Vitor Atanazio Ventura;
