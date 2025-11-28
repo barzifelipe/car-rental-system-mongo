@@ -17,13 +17,13 @@ ctrl_locacao = Controller_Locacao()
 
 def reports(opcao_relatorio: int = 0):
     if opcao_relatorio == 1:
-        relatorio.get_relatorio_clientes() 
+        relatorio.get_relatorio_clientes_mongo() 
     elif opcao_relatorio == 2:
-        relatorio.get_relatorio_carros_sistema() 
+        relatorio.get_relatorios_carros_mongo() 
     elif opcao_relatorio == 3:
-        relatorio.get_relatorio_funcionarios() 
+        relatorio.get_relatorio_funcionarios_mongo() 
     elif opcao_relatorio == 4:
-        relatorio.get_relatorio_locacao() 
+        relatorio.get_relatorio_locacoes_mongo() 
     elif opcao_relatorio == 5:
         relatorio.get_relatorio_total_valor_diarias() 
 
