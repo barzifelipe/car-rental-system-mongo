@@ -11,7 +11,7 @@ Essas coleções são povoadas automaticamente a partir das tabelas equivalentes
 
 ## Criação das Coleções e Inserção dos Documentos 
 Antes de executar o sistema, é obrigatório criar as coleções e preencher o MongoDB com os dados extraídos do Oracle. 
-$ python createCollectionsAndData.py 
+(src/createCollectionsAndData.py) 
 
 Esse script realiza automaticamente: 
 - Criação das coleções no MongoDB (carros, cliente, funcionario, locacoes);
@@ -21,14 +21,6 @@ Esse script realiza automaticamente:
 - Inserção dos documentos no MongoDB;
 
 *Para o script funcionar corretamente, é necessário que as tabelas já existam no Oracle e estejam preenchidas.*
-
-## Criar as Tabelas e Populá-las no Oracle 
-Antes de sincronizar para o MongoDB, execute: 
-$ python create_tables_and_records.py 
-
-Esse script: 
-- Cria as tabelas necessárias no Oracle (carros, cliente, funcionario, locacoes);
-- Insere registros de exemplo.
 
 ## Como Executar o Projeto:
 1. Clone o repositório:
