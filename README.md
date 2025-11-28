@@ -76,11 +76,11 @@ git clone https://github.com/barzifelipe/car_rental_system.git
 >GitHub.
 
 ## Autores:
-Emanoel Vitor Atanazio Ventura;
-Felipe Rodrigues Barzilai;
-João Emanoel Justino;
-Rogeres José Prates da Silva;
-Livia Favato Bastos Neves.
+- Emanoel Vitor Atanazio Ventura;
+- Felipe Rodrigues Barzilai;
+- João Emanoel Justino;
+- Rogeres José Prates da Silva;
+- Livia Favato Bastos Neves.
 
 
 
